@@ -3,11 +3,11 @@ package com.javaschool.SBB.db.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
 @Table(name = "passenger")
-
 public class Passenger implements Serializable {
 
     @Id
@@ -15,24 +15,25 @@ public class Passenger implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "firstName")
+    @Column(name = "first_name")
     private String firstName;
 
-    @Column(name = "lastName")
+    @Column(name = "last_name")
     private String lastName;
 
-    @Column(name = "dateOfBirth")
-    private Date dateOfBirth;
+    @Column(name = "date_of_birth", columnDefinition = "DATE")
+    private LocalDate dateOfBirth;
+
+
 
     public Passenger() {
     }
 
-    public Passenger(String firstName, String lastName, Date dateOfBirth) {
+    public Passenger(String firstName, String lastName, LocalDate dateOfBirth) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
     }
-
 
     public int getId() {
         return id;
@@ -58,13 +59,12 @@ public class Passenger implements Serializable {
         this.lastName = lastName;
     }
 
-    public Date getDateOfBirth() {
+    public LocalDate getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(Date dateOfBirth) {
+    public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
-
 
 }

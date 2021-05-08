@@ -17,6 +17,9 @@
         <spring.version>5.2.14.RELEASE</spring.version>
         <jsp.version>2.2</jsp.version>
         <jstl.version>1.2</jstl.version>
+        <securityWeb.version>5.4.5</securityWeb.version>
+        <securityCore.version>5.4.5</securityCore.version>
+        <securityConfig.version>5.4.5</securityConfig.version>
     </properties>
 
     <dependencies>
@@ -26,6 +29,7 @@
             <version>4.0.1</version>
             <scope>provided</scope>
         </dependency>
+
         <dependency>
             <groupId>org.thymeleaf</groupId>
             <artifactId>thymeleaf</artifactId>
@@ -63,52 +67,39 @@
 
         <dependency>
             <groupId>org.springframework</groupId>
-            <artifactId>spring-jdbc</artifactId>
-            <version>5.3.5</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework</groupId>
             <artifactId>spring-orm</artifactId>
-            <version>5.3.5</version>
+            <version>${spring.version}</version>
         </dependency>
 
         <dependency>
-            <groupId>javax.persistence</groupId>
-            <artifactId>persistence-api</artifactId>
-            <version>1.0</version>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+            <version>${securityWeb.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-core</artifactId>
+            <version>${securityCore.version}</version>
+        </dependency>
 
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+            <version>${securityConfig.version}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-core -->
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
-            <version>4.2.0.Final</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-validator</artifactId>
-            <version>6.1.0.Final</version>
+            <version>5.3.7.Final</version>
         </dependency>
 
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-            <version>42.2.18</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-commons-annotations</artifactId>
-            <version>3.2.0.Final</version>
-        </dependency>
-
-
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-entitymanager</artifactId>
-            <version>4.2.0.Final</version>
+            <version>42.2.5</version>
         </dependency>
 
         <dependency>
@@ -116,12 +107,14 @@
             <artifactId>jstl</artifactId>
             <version>${jstl.version}</version>
         </dependency>
+
         <dependency>
             <groupId>javax.servlet.jsp</groupId>
             <artifactId>jsp-api</artifactId>
             <version>${jsp.version}</version>
             <scope>provided</scope>
         </dependency>
+
 
     </dependencies>
 

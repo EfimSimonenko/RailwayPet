@@ -4,16 +4,14 @@ package com.javaschool.SBB.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.orm.jpa.JpaTransactionManager;
-import org.springframework.orm.jpa.JpaVendorAdapter;
-import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
-import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import org.springframework.orm.hibernate5.HibernateTransactionManager;
+import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+
 
 import javax.sql.DataSource;
 import java.util.Properties;
@@ -31,28 +29,29 @@ public class DataConfig {
         ds.setDriverClassName("org.postgresql.Driver");
         ds.setUrl("jdbc:postgresql://localhost:5432/SBB_database");
         ds.setUsername("admin");
-        ds.setPassword("");
+        ds.setPassword("admin");
         return ds;
     }
 
     @Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
-        LocalContainerEntityManagerFactoryBean em
-                = new LocalContainerEntityManagerFactoryBean();
-        em.setDataSource(dataSource());
-        em.setPackagesToScan(new String[] { "com.javaschool.SBB.db.entities" });
-
-        JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
-        em.setJpaVendorAdapter(vendorAdapter);
-        em.setJpaProperties(additionalProperties());
-        return em;
+    public LocalSessionFactoryBean sessionFactory() {
+        try {
+            LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
+            sessionFactory.setDataSource(dataSource());
+            sessionFactory.setPackagesToScan(new String[]{"com.javaschool.SBB.db.entities"});
+            sessionFactory.setHibernateProperties(additionalProperties());
+            return sessionFactory;
+        }
+        catch (Exception e) {
+            throw new RuntimeException("Error on creating datasource", e);
+        }
     }
 
 
     @Bean
     public PlatformTransactionManager transactionManager() {
-        final JpaTransactionManager transactionManager = new JpaTransactionManager();
-        transactionManager.setEntityManagerFactory(entityManagerFactory().getObject());
+        HibernateTransactionManager transactionManager = new HibernateTransactionManager();
+        transactionManager.setSessionFactory(sessionFactory().getObject());
         return transactionManager;
     }
 
@@ -63,11 +62,10 @@ public class DataConfig {
 
     final Properties additionalProperties() {
         final Properties hibernateProperties = new Properties();
+        hibernateProperties.setProperty("hibernate.hbm2ddl.auto", "update");
+        hibernateProperties.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQL9Dialect");
+        hibernateProperties.setProperty("hibernate.show_sql", "true");
 
         return hibernateProperties;
     }
-
-
-
-
 }

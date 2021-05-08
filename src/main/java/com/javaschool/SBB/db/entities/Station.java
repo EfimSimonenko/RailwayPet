@@ -3,6 +3,7 @@ package com.javaschool.SBB.db.entities;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "station")
 public class Station {
 
     @Id
@@ -10,8 +11,33 @@ public class Station {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "stationName")
+    @Column(name = "station_name")
     private String stationName;
 
+    public Station() {
+    }
 
+    public Station(String stationName) {
+        this.stationName = stationName;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getStationName() {
+        return stationName;
+    }
+
+    public void setStationName(String stationName) {
+        this.stationName = stationName;
+    }
+
+    public String toString() {
+        return "" + this.getStationName();
+    }
 }
