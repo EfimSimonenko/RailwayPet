@@ -5,15 +5,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Welcome!</title>
+    <title>All stations</title>
 </head>
+
 <body>
 <h1>Register</h1>
-<form method="POST">
-    First Name: <input type="text" name="firstName" /><br/>
-    Last Name: <input type="text" name="lastName" /><br/>
-    Date of birth: <input type="date" name="dateOfBirth" /><br/>
-    <input type="submit" value="Register" />
-</form>
+
+<c:if test="${!empty listStations}">
+    <c:forEach items="${listStations}" var="station">
+        <option value="${station.id}">${station.name}</option>
+        td><a href="/stationInfo/${station.id}">${station.name}</a></td>
+    </c:forEach>
+</c:if>
+
 </body>
-</html>

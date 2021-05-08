@@ -5,14 +5,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Welcome!</title>
+    <title>Register</title>
 </head>
+
 <body>
-<h1>Profile</h1>
-<form method="GET">
-    <c:out value="${passenger.firstName}" /><br/>
-    <c:out value="${passenger.lastName}" /><br/>
-    <c:out value="${passenger.dateOfBirth}" />
-</form>
+<h1>Register</h1>
+
+<form:form method="POST" action="/findTicket" modelAttribute="user">
+
+</form:form>
+
+<a href="/index">Return to main page</a>
 </body>
-</html>
+
