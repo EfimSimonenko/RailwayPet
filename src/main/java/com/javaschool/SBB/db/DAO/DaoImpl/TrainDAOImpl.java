@@ -5,6 +5,7 @@ import com.javaschool.SBB.db.entities.Station;
 import com.javaschool.SBB.db.entities.Train;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -35,6 +36,14 @@ public class TrainDAOImpl implements TrainDAO {
         return stationList;
     }
 
+    @Override
+    public Train getByName(String trainName) {
+        String namedQuery = "SELECT t FROM Train t WHERE t.trainName = :trainName";
+
+        Query query = sessionFactory.getCurrentSession().createQuery(namedQuery);
+        query.setParameter("trainName", trainName);
+        return (Train) query.getSingleResult();
+    }
 
 
 

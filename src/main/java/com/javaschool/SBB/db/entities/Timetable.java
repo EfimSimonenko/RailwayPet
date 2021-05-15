@@ -16,11 +16,11 @@ public class Timetable {
     private int id;
 
     @ManyToOne
-    @JoinColumn (name = "train_id")
+    @JoinColumn (name = "train_id" , nullable = false)
     private Train trainId;
 
     @ManyToOne
-    @JoinColumn (name = "station_id")
+    @JoinColumn (name = "station_id" , nullable = false)
     private Station stationId;
 
     @Column(name = "arrival_time")

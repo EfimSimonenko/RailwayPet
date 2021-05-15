@@ -1,5 +1,7 @@
 package com.javaschool.SBB.db.DAO.daoInterfaces;
 
+import com.javaschool.SBB.db.DTO.SuitableRouteDTO;
+import com.javaschool.SBB.db.DTO.TicketSearchDTO;
 import com.javaschool.SBB.db.entities.Station;
 import com.javaschool.SBB.db.entities.Timetable;
 
@@ -13,6 +15,13 @@ public interface TimetableDAO {
     void addToTimetable(Timetable timetable);
 
     List<Timetable> getFullTimetable();
+
+    List<Timetable> getTrainsOnDepartureStation(TicketSearchDTO requestedData);
+
+    List<Timetable> getTrainsOnArrivalStation(TicketSearchDTO requstedData);
+
+    List<Station> getTrainRoute(SuitableRouteDTO route);
+
 
 
 

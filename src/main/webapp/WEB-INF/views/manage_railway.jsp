@@ -17,15 +17,15 @@
     <c:if test="${!empty fullTimetable}">
         <table class="tg">
             <tr>
-                <th width="120">Train No</th>
+                <th width="200">Train No</th>
                 <th width="120">Station</th>
-                <th width="120">Arrival time</th>
-                <th width="60">Departure time</th>
+                <th width="200">Arrival time</th>
+                <th width="200">Departure time</th>
             </tr>
             <c:forEach items="${fullTimetable}" var="timetable">
                 <tr>
-                    <td>${timetable.train.trainName}</td>
-                    <td>${timetable.station.stationName}</td>
+                    <td>${timetable.trainId.trainName}</td>
+                    <td>${timetable.stationId.stationName}</td>
                     <td>${timetable.arrivalTime}</td>
                     <td>${timetable.departureTime}</td>
 
@@ -34,7 +34,7 @@
         </table>
     </c:if>
 </div>
-
+<br/>
 <div>
     <h3> Add train</h3>
     <form:form method="POST"
@@ -77,7 +77,7 @@
     <h3> Add station</h3>
     <form:form method="POST"
                action="/addStation" modelAttribute="station">
-        <table>
+        <table border="1">
             <tr>
                 <td>
                     <form:label path="stationName">
@@ -102,6 +102,7 @@
 <br/>
 <br/>
 <div>
+    <h3> Add train stop</h3>
     <form:form method="POST" action="/addTrainStop" modelAttribute="trainStop">
         <table>
             <tr>

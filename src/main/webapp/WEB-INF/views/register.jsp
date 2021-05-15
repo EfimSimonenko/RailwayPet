@@ -11,7 +11,7 @@
 <body>
 <h1>Register</h1>
 
-<form:form method="POST" action="/register" modelAttribute="user">
+<form:form method="POST" action="/register" modelAttribute="registrationForm">
     <table>
         <div>
             <form:input type="text" path="username" placeholder="Username"
@@ -21,9 +21,16 @@
             <form:input type="password" path="password" placeholder="Password"></form:input>
         </div>
         <div>
-            <form:input type="password" path="passwordConfirm"
-                        placeholder="Confirm your password"></form:input>
-
+            <form:input type="text" path="firstName"
+                        placeholder="First name"></form:input>
+        </div>
+        <div>
+            <form:input type="text" path="lastName"
+                        placeholder="Last name"></form:input>
+        </div>
+        <div>
+            <form:input type="date" path="dateOfBirth"
+                        placeholder="Date of birth"></form:input>
         </div>
         <button type="submit">Register</button>
     </table>

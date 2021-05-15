@@ -18,8 +18,8 @@ public class Ticket {
     private Train train;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    @JoinColumn(name = "passenger")
+    private Passenger passenger;
 
     @ManyToOne
     @JoinColumn (name = "station_from")
@@ -32,9 +32,9 @@ public class Ticket {
     public Ticket() {
     }
 
-    public Ticket(Train train, User user, Station stationFrom, Station stationTo) {
+    public Ticket(Train train, Passenger passenger, Station stationFrom, Station stationTo) {
         this.train = train;
-        this.user = user;
+        this.passenger = passenger;
         this.stationFrom = stationFrom;
         this.stationTo = stationTo;
     }
@@ -55,12 +55,12 @@ public class Ticket {
         this.train = train;
     }
 
-    public User getUser() {
-        return user;
+    public Passenger getUser() {
+        return passenger;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setPasssenger(Passenger passenger) {
+        this.passenger = passenger;
     }
 
     public Station getStationFrom() {

@@ -12,5 +12,7 @@ public interface TrainDAO {
 
     List<Train> getAllTrains();
 
+    Train getByName(String name);
+
 
 }

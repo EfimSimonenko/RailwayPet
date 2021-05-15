@@ -18,33 +18,44 @@ import javax.sql.DataSource;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
+
     @Autowired
     private DataSource dataSource;
 
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth)
+    @Override
+    public void configure(AuthenticationManagerBuilder auth)
             throws Exception {
-        auth.jdbcAuthentication()
+        auth.inMemoryAuthentication()
+                .withUser("user1").password(passwordEncoder().encode("1234")).roles("EMPLOYEE")
+                .and()
+                .withUser("user2").password(passwordEncoder().encode("1234")).roles("EMPLOYEE")
+                .and()
+                .withUser("admin").password(passwordEncoder().encode("1111")).roles("ADMIN");
+
+
+       /* auth.jdbcAuthentication()
                 .dataSource(dataSource).
-                usersByUsernameQuery("SELECT email, password, enabled"
-                + " FROM users WHERE email = ?")
-                .authoritiesByUsernameQuery("SELECT email, role "
-                        + "FROM users WHERE email = ?")
+                usersByUsernameQuery("SELECT username, password, enabled"
+                + " FROM users WHERE username = ?")
+                .authoritiesByUsernameQuery("SELECT username, role "
+                        + "FROM users WHERE username = ?")
                 .passwordEncoder(passwordEncoder());
+        */
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .antMatchers("/user/**").hasAnyAuthority("EMPLOYEE_ROLE", "ADMIN_ROLE")
-                .antMatchers("/employee/**").hasAuthority("EMPLOYEE_ROLE")
-
+        http
+                .csrf().disable()
+                .authorizeRequests()
+                .antMatchers("/admin/**").hasRole("ADMIN")
                 .antMatchers("/**").permitAll()
                 .and().formLogin()
                 .and()
                 .formLogin()
-                .loginPage("/login")
-                .defaultSuccessUrl("/home", true)
+                .loginProcessingUrl("/perform_login")
+                .defaultSuccessUrl("/stations", true)
+                .failureUrl("/login.html?error=true")
                 .and()
                 .logout()
                 .logoutUrl("/performLogOut")

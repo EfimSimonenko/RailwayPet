@@ -1,28 +1,20 @@
-package com.javaschool.SBB.db.entities;
+package com.javaschool.SBB.db.DTO;
 
 import javax.persistence.*;
 
+public class TrainDTO {
 
-@Entity
-@Table(name = "train")
-public class Train {
+        private int id;
 
-    @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+        private String trainName;
 
-    @Column(name = "train_name")
-    private String trainName;
+        private int numberOfSeats;
 
-    @Column(name = "number_of_seats", unique = true, nullable = false)
-    private int numberOfSeats;
-
-
-    public Train() {
+    public TrainDTO() {
     }
 
-    public Train(String trainName, int numberOfSeats) {
+    public TrainDTO(int id, String trainName, int numberOfSeats) {
+        this.id = id;
         this.trainName = trainName;
         this.numberOfSeats = numberOfSeats;
     }
@@ -49,10 +41,5 @@ public class Train {
 
     public void setNumberOfSeats(int numberOfSeats) {
         this.numberOfSeats = numberOfSeats;
-    }
-
-    @Override
-    public String toString(){
-        return "" + this.getTrainName();
     }
 }

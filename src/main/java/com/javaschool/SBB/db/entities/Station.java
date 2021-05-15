@@ -11,7 +11,7 @@ public class Station {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "station_name")
+    @Column(name = "station_name", unique = true, nullable = false)
     private String stationName;
 
     public Station() {

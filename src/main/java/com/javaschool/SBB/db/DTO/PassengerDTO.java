@@ -1,35 +1,22 @@
-package com.javaschool.SBB.db.entities;
+package com.javaschool.SBB.db.DTO;
 
-
-import javax.persistence.*;
-import java.io.Serializable;
+import javax.persistence.Column;
 import java.time.LocalDate;
-import java.util.Date;
 
-@Entity
-@Table(name = "passenger")
-public class Passenger implements Serializable {
-
-    @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class PassengerDTO {
     private int id;
 
-    @Column(name = "first_name", nullable = false)
     private String firstName;
 
-    @Column(name = "last_name", nullable = false)
     private String lastName;
 
-    @Column(name = "date_of_birth", columnDefinition = "DATE", nullable = false)
     private LocalDate dateOfBirth;
 
-
-
-    public Passenger() {
+    public PassengerDTO() {
     }
 
-    public Passenger(String firstName, String lastName, LocalDate dateOfBirth) {
+    public PassengerDTO(int id, String firstName, String lastName, LocalDate dateOfBirth) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
@@ -66,5 +53,4 @@ public class Passenger implements Serializable {
     public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
-
 }

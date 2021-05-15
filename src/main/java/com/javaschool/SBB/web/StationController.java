@@ -18,11 +18,12 @@ public class StationController {
 
     @RequestMapping(value = "/stations", method = RequestMethod.GET)
     public String stationsPage(Model model) {
+        model.addAttribute("station", new Station());
         model.addAttribute("listStations", stationService.listAllStations());
         return "all_stations";
     }
 
-    @RequestMapping(value = "stationInfo/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "stations/{id}", method = RequestMethod.GET)
     public String getBoookInfo(@PathVariable("id") int id, Model model) {
         Station station = this.stationService.getStationById(id);
         model.addAttribute("station", station);

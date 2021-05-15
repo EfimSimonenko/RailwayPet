@@ -6,25 +6,27 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Регистрация</title>
+    <title>SBB</title>
 </head>
 
+<html>
+<head></head>
 <body>
-<div>
-    <form:form method="POST" modelAttribute="user">
-        <h2>Registration</h2>
-        <div>
-            <form:input type="text" path="username" placeholder="Username"
-                        autofocus="true"></form:input>
-            <form:errors path="username"></form:errors>
-                ${usernameError}
-        </div>
-        <div>
-            <form:input type="password" path="password" placeholder="Password"></form:input>
-        </div>
-        <button type="submit">Sign in</button>
-    </form:form>
-    <a href="/">Main page</a>
-</div>
+<h1>Log in</h1>
+<form name='f' action="login" method='POST'>
+    <table>
+        <tr>
+            <td>User:</td>
+            <td><input type='text' name='username' value=''></td>
+        </tr>
+        <tr>
+            <td>Password:</td>
+            <td><input type='password' name='password' /></td>
+        </tr>
+        <tr>
+            <td><input name="submit" type="submit" value="submit" /></td>
+        </tr>
+    </table>
+</form>
 </body>
 </html>

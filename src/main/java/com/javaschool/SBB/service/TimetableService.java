@@ -1,5 +1,6 @@
 package com.javaschool.SBB.service;
 
+import com.javaschool.SBB.db.DAO.Mapper;
 import com.javaschool.SBB.db.DAO.daoInterfaces.TimetableDAO;
 import com.javaschool.SBB.db.DTO.TimetableDTO;
 import com.javaschool.SBB.db.entities.Station;
@@ -17,6 +18,8 @@ public class TimetableService {
     @Autowired
     TimetableDAO timetableDAO;
 
+    @Autowired
+    Mapper mapper;
 
 
     public List<Timetable> getStationTimetableForToday(Station station) {
@@ -24,7 +27,8 @@ public class TimetableService {
     }
 
     public void addToTimetable(TimetableDTO timetableDTO) {
-        Timetable timetable = dtoToEntity(timetableDTO);
+
+        Timetable timetable = mapper.dtoToEntity(timetableDTO);
         timetableDAO.addToTimetable(timetable);
     }
 
@@ -32,11 +36,5 @@ public class TimetableService {
         return timetableDAO.getFullTimetable();
     }
 
-    public Timetable dtoToEntity(TimetableDTO timetableDTO) {
-        LocalDateTime arrivalTime = LocalDateTime.parse(timetableDTO.getArrivalTime(),
-                DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-        LocalDateTime departureTime = LocalDateTime.parse(timetableDTO.getDepartureTime(),
-                DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-        return new Timetable(timetableDTO.getTrainId(), timetableDTO.getStationId(), arrivalTime, departureTime);
-    }
+
 }

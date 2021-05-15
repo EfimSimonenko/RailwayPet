@@ -14,10 +14,6 @@
     <form action="/login">
         <button type="submit">Sign in</button>
     </form>
-    </br>
-    <form action="/register">
-        <button type="submit">Sign up</button>
-    </form>
 </div>
 </br>
 </br>
@@ -30,8 +26,4 @@
         <button type="submit">Show all stations </button>
     </form>
 </div>
-
-
-
-
 </body>

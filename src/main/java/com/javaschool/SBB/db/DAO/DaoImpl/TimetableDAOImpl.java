@@ -1,6 +1,8 @@
 package com.javaschool.SBB.db.DAO.DaoImpl;
 
 import com.javaschool.SBB.db.DAO.daoInterfaces.TimetableDAO;
+import com.javaschool.SBB.db.DTO.SuitableRouteDTO;
+import com.javaschool.SBB.db.DTO.TicketSearchDTO;
 import com.javaschool.SBB.db.entities.Station;
 import com.javaschool.SBB.db.entities.Timetable;
 import org.hibernate.Session;
@@ -24,16 +26,16 @@ public class TimetableDAOImpl implements TimetableDAO {
     SessionFactory sessionFactory;
 
     @Override
-    public List getStationTimetableForToday(Station station) {
-        String customQuery = "SELECT t FROM timetable t WHERE t.station.id = :id AND t.arrival_time >= :startOfTheDay" +
-                " AND t.departure_time <= :endOfTheDay";
+    public List<Timetable> getStationTimetableForToday(Station station) {
+        String customQuery = "SELECT t FROM Timetable t WHERE t.stationId = :station AND t.arrivalTime >= :startOfTheDay" +
+                " AND t.departureTime <= :endOfTheDay";
         Session session = sessionFactory.getCurrentSession();
-        Query query = session.createNamedQuery(customQuery, Station.class);
-        query.setParameter("id", station.getId());
+        Query query = session.createQuery(customQuery);
+        query.setParameter("station", station);
         LocalDateTime startOfTheDay = LocalDate.now().atStartOfDay();
         LocalDateTime endOfTheDay = LocalDate.now().atStartOfDay().plusDays(1);
-        query.setParameter("arrivalTime", startOfTheDay);
-        query.setParameter("departureTime", endOfTheDay);
+        query.setParameter("startOfTheDay", startOfTheDay);
+        query.setParameter("endOfTheDay", endOfTheDay);
         return query.getResultList();
     }
 
@@ -47,6 +49,41 @@ public class TimetableDAOImpl implements TimetableDAO {
         List<Timetable> fullTimetable = session.createQuery("from Timetable").list();
         return fullTimetable;
     }
+
+    @Override
+    public List<Timetable> getTrainsOnDepartureStation(TicketSearchDTO requestedData) {
+        String customQuery = "SELECT t FROM Timetable t WHERE t.trainId = :train AND t.stationId = :station" +
+                " AND t.departureTime >= :departureTimeAfter";
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery(customQuery);
+        query.setParameter("train", requestedData.getDepartureTimeAfter());
+        query.setParameter("station", requestedData.getStationFrom());
+        query.setParameter("departureTimeAfter", requestedData.getDepartureTimeAfter());
+        return query.getResultList();
+    }
+
+    @Override
+    public List<Timetable> getTrainsOnArrivalStation(TicketSearchDTO requestedData) {
+        String customQuery = "SELECT t FROM Timetable t WHERE t.trainId = :train AND t.stationId = :station" +
+                " AND t.arrivalTime >= :arrivalTimeBefore";
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery(customQuery);
+        query.setParameter("train", requestedData.getDepartureTimeAfter());
+        query.setParameter("station", requestedData.getStationTo());
+        query.setParameter("arrivalTimeBefore", requestedData.getDepartureTimeAfter());
+        return query.getResultList();
+    }
+
+    public List<Station> getTrainRoute(SuitableRouteDTO route) {
+        String customQuery = "SELECT t.stationId FROM Timetable t WHERE t.trainId =:train" +
+                " ORDER BY t.departureTime";
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery(customQuery);
+        query.setParameter("train", route.getTrain());
+        List trainStationList =  query.getResultList();
+        return trainStationList;
+    }
+
 
 
 

@@ -10,7 +10,7 @@
 </head>
 <body>
 <h1>Station timetable</h1>
-<c:if test="${!empty timetable}">
+<c:if test="${!empty timetableList}">
     <table class="tg">
         <tr>
             <th width="200">Train name</th>
@@ -19,7 +19,7 @@
         </tr>
         <c:forEach items="${timetableList}" var="timetable">
             <tr>
-                <td>${timetable.trainName}</td>
+                <td>${timetable.trainId.trainName}</td>
                 <td>${timetable.arrivalTime}</td>
                 <td>${timetable.departureTime}</td>
             </tr>
