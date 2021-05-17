@@ -10,12 +10,12 @@ public class PassengerDTO {
 
     private String lastName;
 
-    private LocalDate dateOfBirth;
+    private String dateOfBirth;
 
     public PassengerDTO() {
     }
 
-    public PassengerDTO(int id, String firstName, String lastName, LocalDate dateOfBirth) {
+    public PassengerDTO(int id, String firstName, String lastName, String dateOfBirth) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -46,11 +46,11 @@ public class PassengerDTO {
         this.lastName = lastName;
     }
 
-    public LocalDate getDateOfBirth() {
+    public String getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(LocalDate dateOfBirth) {
+    public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 }

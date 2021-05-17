@@ -5,14 +5,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Register</title>
+    <title>Search</title>
 </head>
 
 <body>
-<h1>Register</h1>
+<h1>Look for a possible route</h1>
 
-<form:form method="POST" action="/findTicket" modelAttribute="ticketSearchForm">
-    <h2>Registration</h2>
+<form:form method="POST" action="/searchForTrain" modelAttribute="ticketSearchForm">
     <div>
         <form:input type="text" path="stationFrom" placeholder="From"></form:input>
     </div>
@@ -23,11 +22,11 @@
         <form:input type="datetime-local" path="departureTimeAfter" placeholder="Departure time"></form:input>
     </div>
     <div>
-        <form:input type="datetime-local" path="arrivalTimeAfter" placeholder="Arrival time"></form:input>
+        <form:input type="datetime-local" path="arrivalTimeBefore" placeholder="Arrival time"></form:input>
     </div>
     <button type="submit">Find tickets</button>
 </form:form>
 
-<a href="/index">Return to main page</a>
+<a href="/">Return to main page</a>
 </body>
 

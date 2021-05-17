@@ -36,7 +36,7 @@ public class TrainService {
         } else return true;
     }
 
-    public TrainDTO getByName(String trainName) {
-        return mapper.entityToDto(trainDAO.getByName(trainName));
+    public Train getByName(String trainName) {
+        return trainDAO.getByName(trainName);
     }
 }

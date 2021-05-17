@@ -23,7 +23,7 @@
                 <tr>
                     <td>${train.trainName}</td>
                     <td>${train.numberOfSeats}</td>
-                    <td><a href="<c:url value='/passengers/${train.trainName}'/>">Passengers</a></td>
+                    <td><a href="<c:url value='passengers/${train.trainName}'/>">Passengers</a></td>
                 </tr>
             </c:forEach>
         </table>

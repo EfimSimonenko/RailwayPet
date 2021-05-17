@@ -5,18 +5,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>All stations</title>
+    <title>Find ticket</title>
 </head>
 
 <body>
 <h2>List of all trains</h2>
 <div>
-
-
-    <c:if test="${!empty routeList}">
-        <form:form modelAttribute="selectedRoute"
-                   method="POST" action="/buyTicket">
-        <table class="tg">
+    <form method="post" action="/buyTicket/${route.train.trainName}">
+        <table border="1" class="tg">
             <tr>
                 <th width="200">Train name</th>
                 <th width="150">Departure station</th>
@@ -24,20 +20,17 @@
                 <th width="150">Arrival station</th>
                 <th width="180">Arrival time</th>
                 <th width="150"></th>
-
             </tr>
-            <c:forEach items="${routeList}" var="route">
                 <tr>
-                    <td> <form:textarea path="trainId.trainName" value="${route.trainId.trainName}"/></td>
-                    <td> <form:textarea path="stationFrom.stationName" value=${route.stationFrom.stationName}/></td>
-                    <td> <form:textarea path="departureTime" value = "${route.departureTime}"/></td>
-                    <td> <form:textarea path="stationTo.stationName" value=${route.stationTo.stationName}/></td>
-                    <td> <form:textarea path="arrivalTime" value=${route.arrivalTime}/></td>
+                    <td> ${route.train.trainName}" </td>
+                    <td> ${route.departureStation.stationName}"  </td>
+                    <td> ${route.departureTime}" </td>
+                    <td> ${route.arrivalStation.stationName}"</td>
+                    <td> ${route.arrivalTime}</td>
                     <td> <button type="submit">Buy ticket</button> </td>
                 </tr>
-            </c:forEach>
         </table>
-    </c:if>
+    </form>
 </div>
 
 </body>

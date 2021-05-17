@@ -5,12 +5,13 @@ import com.javaschool.SBB.db.entities.Train;
 
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 public interface PassengerDAO{
 
 
-    Passenger findByNameAndDateOfBirth(String firstName, String lastName, Date dateOfBirth);
+    List<Passenger> findByNameAndDateOfBirth(String firstName, String lastName, LocalDate dateOfBirth);
 
     List<Passenger> findPassengersOnBoard(Train train);
 

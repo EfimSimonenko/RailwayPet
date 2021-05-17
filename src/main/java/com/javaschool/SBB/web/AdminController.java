@@ -3,10 +3,7 @@ package com.javaschool.SBB.web;
 import com.javaschool.SBB.db.DTO.PassengerDTO;
 import com.javaschool.SBB.db.DTO.TimetableDTO;
 import com.javaschool.SBB.db.DTO.TrainDTO;
-import com.javaschool.SBB.db.entities.Passenger;
-import com.javaschool.SBB.db.entities.Station;
-import com.javaschool.SBB.db.entities.Timetable;
-import com.javaschool.SBB.db.entities.Train;
+import com.javaschool.SBB.db.entities.*;
 import com.javaschool.SBB.service.StationService;
 import com.javaschool.SBB.service.TicketService;
 import com.javaschool.SBB.service.TimetableService;
@@ -53,19 +50,19 @@ public class AdminController {
     @RequestMapping(value = "/addTrain", method = RequestMethod.POST)
     public String addTrain(@ModelAttribute(name = "train") Train train, Model model) {
         trainService.createTrain(train);
-        return "redirect: /editTimetable";
+        return "redirect: editTimetable";
     }
 
     @RequestMapping(value = "/addStation", method = RequestMethod.POST)
     public String addStation(@ModelAttribute(name = "station") Station station) {
         stationService.createStation(station);
-        return "redirect: /editTimetable";
+        return "redirect: editTimetable";
     }
 
     @RequestMapping(value = "/addTrainStop", method = RequestMethod.POST)
     public String addTrainStop (@ModelAttribute(name = "trainStop") TimetableDTO trainStop) {
         timetableService.addToTimetable(trainStop);
-        return "redirect: /editTimetable";
+        return "redirect: editTimetable";
     }
 
     @RequestMapping(value = "/allTrains", method = RequestMethod.GET)
@@ -75,11 +72,14 @@ public class AdminController {
         return "all_trains";
     }
 
-    @RequestMapping(value = "passengers/{trainName}", method = RequestMethod.POST)
-    public String showPassengersByTrain(@PathVariable(name = "trainName") String trainName) {
-        TrainDTO train = trainService.getByName(trainName);
-        List<PassengerDTO> passengersOnTrain = ticketService.getPassengersByTrain(train);
-        return "manage_railway";
+    @RequestMapping(value = "/passengers/{trainName}", method = RequestMethod.GET)
+    public String showPassengersByTrain(@PathVariable(name = "trainName") String trainName, Model model) {
+        Train train = trainService.getByName(trainName);
+        List<Ticket> passengersOnTrain = ticketService.getTicketsByTrain(train);
+        model.addAttribute("ticketList", passengersOnTrain);
+        model.addAttribute("train", train);
+        return "passengers_on_train";
     }
+
 
 }

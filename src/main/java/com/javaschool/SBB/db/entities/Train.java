@@ -12,10 +12,10 @@ public class Train {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "train_name")
+    @Column(name = "train_name", unique = true)
     private String trainName;
 
-    @Column(name = "number_of_seats", unique = true, nullable = false)
+    @Column(name = "number_of_seats", nullable = false)
     private int numberOfSeats;
 
 

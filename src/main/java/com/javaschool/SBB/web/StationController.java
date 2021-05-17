@@ -23,7 +23,7 @@ public class StationController {
         return "all_stations";
     }
 
-    @RequestMapping(value = "stations/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "stationInfo/{id}", method = RequestMethod.GET)
     public String getBoookInfo(@PathVariable("id") int id, Model model) {
         Station station = this.stationService.getStationById(id);
         model.addAttribute("station", station);

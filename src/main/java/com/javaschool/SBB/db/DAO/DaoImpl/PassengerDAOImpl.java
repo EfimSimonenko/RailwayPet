@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.Query;
 import javax.transaction.Transactional;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.sql.Date;
 import java.util.List;
@@ -32,14 +33,14 @@ public class PassengerDAOImpl implements PassengerDAO {
     }
 
     @Override
-    public Passenger findByNameAndDateOfBirth(String firstName, String lastName, Date dateOfBirth) {
+    public List<Passenger> findByNameAndDateOfBirth(String firstName, String lastName, LocalDate dateOfBirth) {
         String queryString = "SELECT p FROM Passenger p WHERE p.firstName = :firstName " +
                 "AND p.lastName = :lastName AND p.dateOfBirth = :dateOfBirth";
         Query query = sessionFactory.getCurrentSession().createQuery(queryString);
         query.setParameter("firstName", firstName);
         query.setParameter("lastName", lastName);
         query.setParameter("dateOfBirth", dateOfBirth);
-        return (Passenger) query.getSingleResult();
+        return query.getResultList();
     }
     @Override
     public List<Passenger> findPassengersOnBoard(Train train){

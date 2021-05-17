@@ -1,10 +1,12 @@
 package com.javaschool.SBB.db.DAO.DaoImpl;
 
+import com.javaschool.SBB.db.DAO.daoInterfaces.StationDAO;
 import com.javaschool.SBB.db.DAO.daoInterfaces.TimetableDAO;
 import com.javaschool.SBB.db.DTO.SuitableRouteDTO;
 import com.javaschool.SBB.db.DTO.TicketSearchDTO;
 import com.javaschool.SBB.db.entities.Station;
 import com.javaschool.SBB.db.entities.Timetable;
+import com.javaschool.SBB.hepler.DateTimeParser;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -24,6 +26,12 @@ public class TimetableDAOImpl implements TimetableDAO {
 
     @Autowired
     SessionFactory sessionFactory;
+
+    @Autowired
+    StationDAO stationDAO;
+
+    @Autowired
+    DateTimeParser parser;
 
     @Override
     public List<Timetable> getStationTimetableForToday(Station station) {
@@ -52,25 +60,23 @@ public class TimetableDAOImpl implements TimetableDAO {
 
     @Override
     public List<Timetable> getTrainsOnDepartureStation(TicketSearchDTO requestedData) {
-        String customQuery = "SELECT t FROM Timetable t WHERE t.trainId = :train AND t.stationId = :station" +
+        String customQuery = "SELECT t FROM Timetable t WHERE t.stationId = :station" +
                 " AND t.departureTime >= :departureTimeAfter";
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery(customQuery);
-        query.setParameter("train", requestedData.getDepartureTimeAfter());
-        query.setParameter("station", requestedData.getStationFrom());
-        query.setParameter("departureTimeAfter", requestedData.getDepartureTimeAfter());
+        query.setParameter("station", stationDAO.findByName(requestedData.getStationFrom()));
+        query.setParameter("departureTimeAfter", parser.stringToLocalDateTime(requestedData.getDepartureTimeAfter()));
         return query.getResultList();
     }
 
     @Override
     public List<Timetable> getTrainsOnArrivalStation(TicketSearchDTO requestedData) {
-        String customQuery = "SELECT t FROM Timetable t WHERE t.trainId = :train AND t.stationId = :station" +
-                " AND t.arrivalTime >= :arrivalTimeBefore";
+        String customQuery = "SELECT t FROM Timetable t WHERE t.stationId = :station" +
+                " AND t.arrivalTime <= :arrivalTimeBefore";
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery(customQuery);
-        query.setParameter("train", requestedData.getDepartureTimeAfter());
-        query.setParameter("station", requestedData.getStationTo());
-        query.setParameter("arrivalTimeBefore", requestedData.getDepartureTimeAfter());
+        query.setParameter("station", stationDAO.findByName(requestedData.getStationTo()));
+        query.setParameter("arrivalTimeBefore", parser.stringToLocalDateTime(requestedData.getArrivalTimeBefore()));
         return query.getResultList();
     }
 

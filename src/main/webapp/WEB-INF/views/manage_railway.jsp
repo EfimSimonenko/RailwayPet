@@ -15,7 +15,7 @@
     <h2>Timetable for all stations</h2>
 
     <c:if test="${!empty fullTimetable}">
-        <table class="tg">
+        <table border="2" class="tg">
             <tr>
                 <th width="200">Train No</th>
                 <th width="120">Station</th>
@@ -38,8 +38,8 @@
 <div>
     <h3> Add train</h3>
     <form:form method="POST"
-               action="/addTrain" modelAttribute="train">
-        <table>
+               action="addTrain" modelAttribute="train">
+        <table border="1">
             <tr>
                 <td>
                     <form:label path="trainName">
@@ -76,7 +76,7 @@
 <div>
     <h3> Add station</h3>
     <form:form method="POST"
-               action="/addStation" modelAttribute="station">
+               action="addStation" modelAttribute="station">
         <table border="1">
             <tr>
                 <td>
@@ -103,7 +103,7 @@
 <br/>
 <div>
     <h3> Add train stop</h3>
-    <form:form method="POST" action="/addTrainStop" modelAttribute="trainStop">
+    <form:form method="POST" action="addTrainStop" modelAttribute="trainStop">
         <table>
             <tr>
             <form:select path="trainId.trainName">

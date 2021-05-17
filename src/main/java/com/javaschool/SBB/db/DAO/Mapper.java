@@ -3,8 +3,10 @@ package com.javaschool.SBB.db.DAO;
 import com.javaschool.SBB.db.DAO.daoInterfaces.StationDAO;
 import com.javaschool.SBB.db.DAO.daoInterfaces.TimetableDAO;
 import com.javaschool.SBB.db.DAO.daoInterfaces.TrainDAO;
+import com.javaschool.SBB.db.DTO.PassengerDTO;
 import com.javaschool.SBB.db.DTO.TimetableDTO;
 import com.javaschool.SBB.db.DTO.TrainDTO;
+import com.javaschool.SBB.db.entities.Passenger;
 import com.javaschool.SBB.db.entities.Station;
 import com.javaschool.SBB.db.entities.Timetable;
 import com.javaschool.SBB.db.entities.Train;
@@ -12,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -38,5 +41,12 @@ public class Mapper {
 
     public TrainDTO entityToDto(Train train) {
         return new TrainDTO(train.getId(), train.getTrainName(), train.getNumberOfSeats());
+    }
+
+    public Passenger dtoToEntity(PassengerDTO passengerDTO) {
+        LocalDate dateOfBirth = LocalDate.parse(passengerDTO.getDateOfBirth(),
+                DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        return new Passenger(passengerDTO.getFirstName(),passengerDTO.getLastName(),
+                dateOfBirth);
     }
 }

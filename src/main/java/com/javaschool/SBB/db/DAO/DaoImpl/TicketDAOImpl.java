@@ -1,6 +1,8 @@
 package com.javaschool.SBB.db.DAO.DaoImpl;
 
 import com.javaschool.SBB.db.DAO.daoInterfaces.TicketDAO;
+import com.javaschool.SBB.db.DTO.SuitableRouteDTO;
+import com.javaschool.SBB.db.entities.Passenger;
 import com.javaschool.SBB.db.entities.Ticket;
 import com.javaschool.SBB.db.entities.Train;
 import org.hibernate.Session;
@@ -20,7 +22,8 @@ public class TicketDAOImpl implements TicketDAO {
     SessionFactory sessionFactory;
 
     @Override
-    public void create(Ticket ticket) {
+    public void persist(Ticket ticket) {
+            sessionFactory.getCurrentSession().persist(ticket);
 
     }
 
@@ -32,5 +35,24 @@ public class TicketDAOImpl implements TicketDAO {
         query.setParameter("train", train);
         return query.getResultList();
 
+    }
+
+    public boolean hasPassengerWithSameNameAndDateOfBirth(Passenger passenger, Train train) {
+        String customQuery = "SELECT t FROM Ticket t WHERE t.train.trainName = :train AND t.passenger.firstName = :firstName " +
+                "AND t.passenger.lastName =:lastName AND t.passenger.dateOfBirth =:dateOfBirth";
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery(customQuery);
+        query.setParameter("firstName", passenger.getFirstName());
+        query.setParameter("lastName", passenger.getLastName());
+        query.setParameter("dateOfBirth", passenger.getDateOfBirth());
+        query.setParameter("train", train.getTrainName());
+        if( query.getResultList().size() == 0) return false;
+        else return true;
+    }
+
+    public void addTicket(SuitableRouteDTO selectedRoute, Passenger passenger) {
+        Ticket ticket = new Ticket(selectedRoute.getTrain(), passenger, selectedRoute.getDepartureStation(),
+                selectedRoute.getArrivalStation());
+        persist(ticket);
     }
 }

@@ -1,6 +1,7 @@
 package com.javaschool.SBB.db.DAO.DaoImpl;
 
 import com.javaschool.SBB.db.DAO.daoInterfaces.TrainDAO;
+import com.javaschool.SBB.db.entities.Passenger;
 import com.javaschool.SBB.db.entities.Station;
 import com.javaschool.SBB.db.entities.Train;
 import org.hibernate.Session;
@@ -42,8 +43,13 @@ public class TrainDAOImpl implements TrainDAO {
 
         Query query = sessionFactory.getCurrentSession().createQuery(namedQuery);
         query.setParameter("trainName", trainName);
-        return (Train) query.getSingleResult();
+        try { return (Train) query.getSingleResult(); }
+        catch (Exception e) {
+            return null;
+        }
     }
+
+
 
 
 

@@ -11,12 +11,18 @@
 
 <body>
 <h2>Stations</h2>
-
-<c:if test="${!empty listStations}">
-    <c:forEach items="${listStations}" var="station">
-        <option value="${station.id}">${station.stationName}</option>
-        <td><a href="/stationInfo/${station.id}">${station.stationName}</a></td>
-    </c:forEach>
-</c:if>
-
+<div>
+    <c:if test="${!empty listStations}">
+        <table border="1" class="tg">
+            <tr>
+                <th width="200">Station name</th>
+            </tr>
+            <c:forEach items="${listStations}" var="station">
+                <tr>
+                    <td><a href="/stationInfo/${station.id}">${station.stationName}</a></td>
+                </tr>
+            </c:forEach>
+        </table>
+    </c:if>
+</div>
 </body>
