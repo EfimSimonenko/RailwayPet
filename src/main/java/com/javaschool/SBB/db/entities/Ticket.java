@@ -55,11 +55,11 @@ public class Ticket {
         this.train = train;
     }
 
-    public Passenger getUser() {
+    public Passenger getPassenger() {
         return passenger;
     }
 
-    public void setPasssenger(Passenger passenger) {
+    public void setPassenger(Passenger passenger) {
         this.passenger = passenger;
     }
 

@@ -39,6 +39,10 @@ public class GuestController {
     @RequestMapping(value = "/searchForTrain", method = RequestMethod.POST)
     public String findTicket(@ModelAttribute TicketSearchDTO ticketSearchDTO, RedirectAttributes redirectAttributes) {
         SuitableRouteDTO route = ticketService.getSuitableRoutes(ticketSearchDTO);
+        if (route == null) {
+            redirectAttributes.addFlashAttribute("message", "No trains were found");
+            return "redirect:/purchaseError";
+        }
         redirectAttributes.addFlashAttribute("route", route);
         return "redirect:/showRoutes";
     }
@@ -91,7 +95,7 @@ public class GuestController {
         } else {
             redirectAttributes.addFlashAttribute("message", "Passenger with the same name and date of" +
                     "birth was already registered on this train");
-            return "redirect:/error";
+            return "redirect:/purchaseError";
         }
     }
 
@@ -99,6 +103,7 @@ public class GuestController {
     public String getSuccessfulPage(){
         return "successful";
     }
+
 
 
 }

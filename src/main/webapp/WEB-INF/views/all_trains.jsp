@@ -9,6 +9,9 @@
 </head>
 
 <body>
+<div>
+    <jsp:include page="header.jsp"/>
+</div>
 <h2>List of all trains</h2>
 <div>
     <c:if test="${!empty trainList}">

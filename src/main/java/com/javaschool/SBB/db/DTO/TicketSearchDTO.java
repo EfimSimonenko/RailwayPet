@@ -1,9 +1,16 @@
 package com.javaschool.SBB.db.DTO;
 
+
+
+
 public class TicketSearchDTO {
+
     private String stationFrom;
+
     private String departureTimeAfter;
+
     private String stationTo;
+
     private String arrivalTimeBefore;
 
     public TicketSearchDTO() {

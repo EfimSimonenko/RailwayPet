@@ -2,11 +2,10 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Welcome!</title>
+    <title>Ticket purchase</title>
 </head>
 
 <body>
@@ -14,6 +13,7 @@
     <jsp:include page="header.jsp"/>
 </div>
 <div>
-    Some info...
+    <h2>Ticket purchased successfully!</h2>
 </div>
-</body>
+
+

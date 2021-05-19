@@ -30,8 +30,9 @@ public class TrainService {
     }
 
     public boolean moreThenTenMinutesBeforeDeparture(SuitableRouteDTO selectedRoute) {
-        Duration duration = Duration.between(selectedRoute.getDepartureTime(), LocalDateTime.now());
-        if (duration.compareTo(Duration.ofMinutes(10)) < 0) {
+        Duration duration = Duration.between(LocalDateTime.now(), selectedRoute.getDepartureTime());
+        Duration tenMinutes = Duration.ofMinutes(10);
+        if (duration.compareTo(tenMinutes) < 0) {
             return false;
         } else return true;
     }

@@ -8,6 +8,9 @@
     <title>Timetable management page </title>
 </head>
 <body>
+<div>
+    <jsp:include page="header.jsp"/>
+</div>
 
 <br/>
 
@@ -15,7 +18,7 @@
     <h2>Timetable for all stations</h2>
 
     <c:if test="${!empty fullTimetable}">
-        <table border="2" class="tg">
+        <table border="2" class="table-row-cell" bgcolor="#00ffff">
             <tr>
                 <th width="200">Train No</th>
                 <th width="120">Station</th>
@@ -28,7 +31,6 @@
                     <td>${timetable.stationId.stationName}</td>
                     <td>${timetable.arrivalTime}</td>
                     <td>${timetable.departureTime}</td>
-
                 </tr>
             </c:forEach>
         </table>

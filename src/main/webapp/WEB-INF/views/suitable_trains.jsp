@@ -9,7 +9,10 @@
 </head>
 
 <body>
-<h2>List of all trains</h2>
+<div>
+    <jsp:include page="header.jsp"/>
+</div>
+<h2></h2>
 <div>
     <form method="post" action="/buyTicket/${route.train.trainName}">
         <table border="1" class="tg">
@@ -22,10 +25,10 @@
                 <th width="150"></th>
             </tr>
                 <tr>
-                    <td> ${route.train.trainName}" </td>
-                    <td> ${route.departureStation.stationName}"  </td>
-                    <td> ${route.departureTime}" </td>
-                    <td> ${route.arrivalStation.stationName}"</td>
+                    <td> ${route.train.trainName} </td>
+                    <td> ${route.departureStation.stationName} </td>
+                    <td> ${route.departureTime} </td>
+                    <td> ${route.arrivalStation.stationName}</td>
                     <td> ${route.arrivalTime}</td>
                     <td> <button type="submit">Buy ticket</button> </td>
                 </tr>

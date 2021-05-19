@@ -13,8 +13,7 @@ public class TimetableDTO {
     public TimetableDTO() {
     }
 
-    public TimetableDTO(int id, Train trainId, Station stationId, String arrivalDate, String departureDate) {
-        this.id = id;
+    public TimetableDTO(Train trainId, Station stationId, String arrivalDate, String departureDate) {
         this.trainId = trainId;
         this.stationId = stationId;
         this.arrivalTime = arrivalDate;
@@ -22,13 +21,6 @@ public class TimetableDTO {
     }
 
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public Train getTrainId() {
         return trainId;

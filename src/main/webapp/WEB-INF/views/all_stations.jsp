@@ -10,6 +10,9 @@
 </head>
 
 <body>
+<div>
+    <jsp:include page="header.jsp"/>
+</div>
 <h2>Stations</h2>
 <div>
     <c:if test="${!empty listStations}">

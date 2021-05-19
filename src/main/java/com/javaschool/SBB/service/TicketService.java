@@ -46,7 +46,9 @@ public class TicketService {
                 }
             }
         }
+        if (routes.size() != 0)
         return routes.get(0);
+        else return null;
     }
 
     public boolean hasEmptySeats(SuitableRouteDTO route) {
@@ -59,7 +61,7 @@ public class TicketService {
         for(Ticket t : ticketsBoughtForTrain) {
            //!!!add algorithm here!!!
         }
-        if ((ticketsBoughtForTrain).size() == 0 || ticketsBoughtForTrain.size() < route.getTrain().getNumberOfSeats()) {
+        if (ticketsBoughtForTrain.size() < route.getTrain().getNumberOfSeats()) {
             return true;
         } else return false;
     }

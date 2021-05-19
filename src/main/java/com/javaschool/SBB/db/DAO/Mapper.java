@@ -39,6 +39,12 @@ public class Mapper {
         return new Timetable(train, station, arrivalTime, departureTime);
     }
 
+    public TimetableDTO entityToDto(Timetable timetable) {
+        String arrivalTime = timetable.getArrivalTime().toString().replace("T", " ");
+        String departureTime = timetable.getDepartureTime().toString().replace("T", " ");
+        return new TimetableDTO(timetable.getTrainId(), timetable.getStationId(), arrivalTime, departureTime);
+    }
+
     public TrainDTO entityToDto(Train train) {
         return new TrainDTO(train.getId(), train.getTrainName(), train.getNumberOfSeats());
     }

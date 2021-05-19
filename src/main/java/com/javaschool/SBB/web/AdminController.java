@@ -35,6 +35,8 @@ public class AdminController {
     @Autowired
     TicketService ticketService;
 
+
+
     @RequestMapping(value = "/editTimetable", method = RequestMethod.GET)
     public String showTimetableEditor(Model model) {
         model.addAttribute("train", new Train());

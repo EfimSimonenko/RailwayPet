@@ -2,18 +2,22 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Welcome!</title>
+    <title>Passengers</title>
 </head>
 
 <body>
 <div>
     <jsp:include page="header.jsp"/>
 </div>
+
 <div>
-    Some info...
+<spring:message text="${message}"/>
 </div>
+<div>
+    <a href="/search" style="color: #2527ae; text-decoration: none;">Back to ticket search page</a>
+</div>
+
 </body>

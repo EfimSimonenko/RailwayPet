@@ -9,9 +9,12 @@
     <title>This is station ${station.stationName}</title>
 </head>
 <body>
+<div>
+    <jsp:include page="header.jsp"/>
+</div>
 <h1>Station timetable</h1>
 <c:if test="${!empty timetableList}">
-    <table class="tg">
+    <table class="table-cell">
         <tr>
             <th width="200">Train name</th>
             <th width="200">Arrival time</th>

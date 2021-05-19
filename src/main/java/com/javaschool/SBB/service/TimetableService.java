@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class TimetableService {
@@ -32,8 +33,10 @@ public class TimetableService {
         timetableDAO.addToTimetable(timetable);
     }
 
-    public List<Timetable> getFullTimetable() {
-        return timetableDAO.getFullTimetable();
+    public List<TimetableDTO> getFullTimetable() {
+        List<Timetable> fullTimetable = timetableDAO.getFullTimetable();
+        List<TimetableDTO> fullTimetableDto = fullTimetable.stream().map(s -> mapper.entityToDto(s)).collect(Collectors.toList());
+        return fullTimetableDto;
     }
 
 

@@ -9,24 +9,51 @@
 </head>
 
 <body>
-<h1>Look for a possible route</h1>
+<div>
+    <jsp:include page="header.jsp"/>
+</div>
+<h1>Find ticket</h1>
 
 <form:form method="POST" action="/searchForTrain" modelAttribute="ticketSearchForm">
     <div>
-        <form:input type="text" path="stationFrom" placeholder="From"></form:input>
-    </div>
-    <div>
-        <form:input type="text" path="stationTo" placeholder="To"></form:input>
-    </div>
-    <div>
-        <form:input type="datetime-local" path="departureTimeAfter" placeholder="Departure time"></form:input>
-    </div>
-    <div>
-        <form:input type="datetime-local" path="arrivalTimeBefore" placeholder="Arrival time"></form:input>
+        <table>
+            <tr>
+                <td>
+                    <spring:message text="From:"/>
+                </td>
+                <td>
+                    <form:input type="text" path="stationFrom" placeholder=""></form:input>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <spring:message text="To:"/>
+                </td>
+                <td>
+                    <form:input type="text" path="stationTo" placeholder=""></form:input>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <spring:message text="Earliest departure time:"/>
+                </td>
+                <td>
+                    <form:input type="datetime-local" path="departureTimeAfter" placeholder="Departure time"></form:input>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <spring:message text="Latest arrival time:"/>
+                </td>
+                <td>
+                    <form:input type="datetime-local" path="arrivalTimeBefore" placeholder="Arrival time"></form:input>
+                </td>
+            </tr>
+        </table>
+
     </div>
     <button type="submit">Find tickets</button>
 </form:form>
 
-<a href="/">Return to main page</a>
 </body>
 

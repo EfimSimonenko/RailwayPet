@@ -18,7 +18,6 @@
                 <th width="180">Departure time</th>
                 <th width="150">Arrival station</th>
                 <th width="180">Arrival time</th>
-                <th width="150"></th>
             </tr>
             <tr>
                 <td> ${route.train.trainName}" </td>
@@ -26,7 +25,6 @@
                 <td> ${route.departureTime}" </td>
                 <td> ${route.arrivalStation.stationName}"</td>
                 <td> ${route.arrivalTime}</td>
-                <td> <button type="submit">Buy ticket</button> </td>
             </tr>
         </table>
 </div>
