@@ -38,27 +38,28 @@ public class GuestController {
 
     @RequestMapping(value = "/searchForTrain", method = RequestMethod.POST)
     public String findTicket(@ModelAttribute TicketSearchDTO ticketSearchDTO, RedirectAttributes redirectAttributes) {
-        SuitableRouteDTO route = ticketService.getSuitableRoutes(ticketSearchDTO);
-        if (route == null) {
+        List<SuitableRouteDTO> routeList = ticketService.getSuitableRoutes(ticketSearchDTO);
+        if (routeList.size() == 0) {
             redirectAttributes.addFlashAttribute("message", "No trains were found");
             return "redirect:/purchaseError";
         }
-        redirectAttributes.addFlashAttribute("route", route);
+        redirectAttributes.addFlashAttribute("routeList", routeList);
         return "redirect:/showRoutes";
     }
 
     @RequestMapping(value = "/showRoutes", method = RequestMethod.GET)
-    public String showSuitableTrains(@ModelAttribute(name = "route") SuitableRouteDTO route,
-                                     Model model, RedirectAttributes redirectAttributes, HttpSession session) {
-        model.addAttribute("route", route);
-        redirectAttributes.addFlashAttribute("route", route);
-        session.setAttribute("route", route);
+    public String showSuitableTrains(@ModelAttribute(name = "routeList") List<SuitableRouteDTO> routeList,
+                                     Model model) {
+        model.addAttribute("routeList", routeList);
+        model.addAttribute("selectedRoute", new SuitableRouteDTO());
         return "suitable_trains";
     }
 
-    @RequestMapping(value = "/buyTicket/{trainName}", method= RequestMethod.POST)
-    public String showRoutes(Model model, HttpSession session, RedirectAttributes redirectAttributes) {
-        SuitableRouteDTO selectedRoute = (SuitableRouteDTO) session.getAttribute("route");
+    @RequestMapping(value = "/buyTicket", method= RequestMethod.POST)
+    public String showRoutes(@ModelAttribute(name = "selectedRoute") SuitableRouteDTO selectedRoute,
+                             Model model, HttpSession session, RedirectAttributes redirectAttributes) {
+        //SuitableRouteDTO selectedRoute = (SuitableRouteDTO) session.getAttribute("route");
+
         boolean hasEmptySeats = ticketService.hasEmptySeats(selectedRoute);
         boolean moreThenTenMinutesBeforeDeparture = trainService.moreThenTenMinutesBeforeDeparture(selectedRoute);
 

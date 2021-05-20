@@ -35,13 +35,26 @@ public class TimetableDAOImpl implements TimetableDAO {
 
     @Override
     public List<Timetable> getStationTimetableForToday(Station station) {
-        String customQuery = "SELECT t FROM Timetable t WHERE t.stationId = :station AND t.arrivalTime >= :startOfTheDay" +
-                " AND t.departureTime <= :endOfTheDay";
+        String customQuery = "SELECT t FROM Timetable t WHERE t.stationId = :station AND ((t.arrivalTime >= :startOfTheDay " +
+                "AND t.arrivalTime <= :endOfTheDay) OR (t.departureTime <= :endOfTheDay AND t.departureTime >= :startOfTheDay))";
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery(customQuery);
         query.setParameter("station", station);
         LocalDateTime startOfTheDay = LocalDate.now().atStartOfDay();
         LocalDateTime endOfTheDay = LocalDate.now().atStartOfDay().plusDays(1);
+        query.setParameter("startOfTheDay", startOfTheDay);
+        query.setParameter("endOfTheDay", endOfTheDay);
+        return query.getResultList();
+    }
+
+    public List<Timetable> getStationTimetableByDate(Station station, LocalDate date) {
+        String customQuery = "SELECT t FROM Timetable t WHERE t.stationId = :station AND ((t.arrivalTime >= :startOfTheDay " +
+                "AND t.arrivalTime <= :endOfTheDay) OR (t.departureTime <= :endOfTheDay AND t.departureTime >= :startOfTheDay))";
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery(customQuery);
+        query.setParameter("station", station);
+        LocalDateTime startOfTheDay = date.atStartOfDay();
+        LocalDateTime endOfTheDay = date.atStartOfDay().plusDays(1);
         query.setParameter("startOfTheDay", startOfTheDay);
         query.setParameter("endOfTheDay", endOfTheDay);
         return query.getResultList();

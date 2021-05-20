@@ -20,11 +20,11 @@
                 <th width="180">Arrival time</th>
             </tr>
             <tr>
-                <td> ${route.train.trainName}" </td>
-                <td> ${route.departureStation.stationName}"  </td>
-                <td> ${route.departureTime}" </td>
-                <td> ${route.arrivalStation.stationName}"</td>
-                <td> ${route.arrivalTime}</td>
+                <td> ${selectedRoute.train.trainName} </td>
+                <td> ${selectedRoute.departureStation.stationName}</td>
+                <td> ${selectedRoute.departureTime} </td>
+                <td> ${selectedRoute.arrivalStation.stationName}</td>
+                <td> ${selectedRoute.arrivalTime}</td>
             </tr>
         </table>
 </div>

@@ -32,26 +32,26 @@ public class TicketService {
 
 
 
-    public SuitableRouteDTO getSuitableRoutes(TicketSearchDTO requestedData) {
+    public List<SuitableRouteDTO> getSuitableRoutes(TicketSearchDTO requestedData) {
 
         List<Timetable> trainsOnDepartureStation = timetableDAO.getTrainsOnDepartureStation(requestedData);
         List<Timetable> trainOnArrivalStation = timetableDAO.getTrainsOnArrivalStation(requestedData);
         List<SuitableRouteDTO> routes = new ArrayList<>();
         for(Timetable departure : trainsOnDepartureStation) {
             for(Timetable arrival : trainOnArrivalStation) {
-                if(departure.getTrainId().getTrainName().equals(arrival.getTrainId().getTrainName())) {
+                if(departure.getTrainId().getTrainName().equals(arrival.getTrainId().getTrainName()) &&
+                  departure.getDepartureTime().compareTo(arrival.getArrivalTime()) < 0) {
                     SuitableRouteDTO route = new SuitableRouteDTO(departure.getTrainId(), departure.getStationId(),
-                            arrival.getStationId(), departure.getDepartureTime(), arrival.getArrivalTime());
+                            arrival.getStationId(), departure.getDepartureTime().toString(), arrival.getArrivalTime().toString());
                     routes.add(route);
                 }
             }
         }
-        if (routes.size() != 0)
-        return routes.get(0);
-        else return null;
+        return routes;
     }
 
     public boolean hasEmptySeats(SuitableRouteDTO route) {
+
         List<Station> stationList = timetableDAO.getTrainRoute(route);  //gets all stations for the train
         List<Ticket> ticketsBoughtForTrain = ticketDAO.getTicketsByTrain(route.getTrain());  //gets all tickets bought for the train
         stationList.indexOf(route.getDepartureStation());

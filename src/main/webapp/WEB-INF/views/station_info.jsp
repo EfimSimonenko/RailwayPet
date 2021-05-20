@@ -13,22 +13,39 @@
     <jsp:include page="header.jsp"/>
 </div>
 <h1>Station timetable</h1>
-<c:if test="${!empty timetableList}">
-    <table class="table-cell">
-        <tr>
-            <th width="200">Train name</th>
-            <th width="200">Arrival time</th>
-            <th width="200">Departure time</th>
-        </tr>
-        <c:forEach items="${timetableList}" var="timetable">
+<div>
+    <form method="GET" action="/stationInfo/${station.id}">
+        <table align="center">
             <tr>
-                <td>${timetable.trainId.trainName}</td>
-                <td>${timetable.arrivalTime}</td>
-                <td>${timetable.departureTime}</td>
+                <td> <input type="date" name="timetableDate"/> </td>
+                <td>
+                    <input type="submit" value="<spring:message text="Get timetable"/>"/>
+                </td>
             </tr>
-        </c:forEach>
-    </table>
-</c:if>
+        </table>
+    </form>
+</div>
+<br/>
+<br/>
+<div>
+    <c:if test="${!empty timetableList}">
+        <table class="table-cell" border="1" align="center">
+            <tr>
+                <th width="200">Train name</th>
+                <th width="200">Arrival time</th>
+                <th width="200">Departure time</th>
+            </tr>
+            <c:forEach items="${timetableList}" var="timetable">
+                <tr>
+                    <td>${timetable.trainId.trainName}</td>
+                    <td>${timetable.arrivalTime}</td>
+                    <td>${timetable.departureTime}</td>
+                </tr>
+            </c:forEach>
+        </table>
+    </c:if>
+</div>
+
 
 </body>
 </html>

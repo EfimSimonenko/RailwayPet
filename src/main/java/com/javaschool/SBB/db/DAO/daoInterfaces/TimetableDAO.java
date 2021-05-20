@@ -22,6 +22,8 @@ public interface TimetableDAO {
 
     List<Station> getTrainRoute(SuitableRouteDTO route);
 
+    List<Timetable> getStationTimetableByDate(Station station, LocalDate date);
+
 
 
 

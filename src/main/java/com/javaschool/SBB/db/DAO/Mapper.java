@@ -31,17 +31,35 @@ public class Mapper {
     public Timetable dtoToEntity(TimetableDTO timetableDTO) {
         Train train = trainDAO.getByName(timetableDTO.getTrainId().getTrainName());
         Station station = stationDAO.findByName(timetableDTO.getStationId().getStationName());
-        LocalDateTime arrivalTime = LocalDateTime.parse(timetableDTO.getArrivalTime(),
+        LocalDateTime  arrivalTime;
+        LocalDateTime departureTime;
+        if (timetableDTO.getArrivalTime().equals("")) arrivalTime = null;
+        else
+        arrivalTime = LocalDateTime.parse(timetableDTO.getArrivalTime(),
                 DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm"));
-        LocalDateTime departureTime = LocalDateTime.parse(timetableDTO.getDepartureTime(),
+        if (timetableDTO.getDepartureTime().equals("")) departureTime = null;
+        else
+            departureTime = LocalDateTime.parse(timetableDTO.getDepartureTime(),
                 DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm"));
 
         return new Timetable(train, station, arrivalTime, departureTime);
     }
 
     public TimetableDTO entityToDto(Timetable timetable) {
-        String arrivalTime = timetable.getArrivalTime().toString().replace("T", " ");
-        String departureTime = timetable.getDepartureTime().toString().replace("T", " ");
+        String arrivalTime;
+        String departureTime;
+        if (timetable.getArrivalTime() == null) {
+            arrivalTime = "";
+        }
+        else {
+            arrivalTime = timetable.getArrivalTime().toString().replace("T", " ");
+        }
+        if (timetable.getDepartureTime() == null){
+            departureTime = "";
+        }
+        else {
+            departureTime = timetable.getDepartureTime().toString().replace("T", " ");
+        }
         return new TimetableDTO(timetable.getTrainId(), timetable.getStationId(), arrivalTime, departureTime);
     }
 

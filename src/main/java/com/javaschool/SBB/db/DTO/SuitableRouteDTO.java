@@ -10,13 +10,13 @@ public class SuitableRouteDTO {
     private Train train;
     private Station departureStation;
     private Station arrivalStation;
-    private LocalDateTime departureTime;
-    private LocalDateTime arrivalTime;
+    private String departureTime;
+    private String arrivalTime;
 
     public SuitableRouteDTO() {
     }
 
-    public SuitableRouteDTO(Train train, Station departureStation, Station arrivalStation, LocalDateTime departureTime, LocalDateTime arrivalTime) {
+    public SuitableRouteDTO(Train train, Station departureStation, Station arrivalStation, String departureTime, String arrivalTime) {
         this.train = train;
         this.departureStation = departureStation;
         this.arrivalStation = arrivalStation;
@@ -48,19 +48,19 @@ public class SuitableRouteDTO {
         this.arrivalStation = arrivalStation;
     }
 
-    public LocalDateTime getDepartureTime() {
+    public String getDepartureTime() {
         return departureTime;
     }
 
-    public void setDepartureTime(LocalDateTime departureTime) {
+    public void setDepartureTime(String departureTime) {
         this.departureTime = departureTime;
     }
 
-    public LocalDateTime getArrivalTime() {
+    public String getArrivalTime() {
         return arrivalTime;
     }
 
-    public void setArrivalTime(LocalDateTime arrivalTime) {
+    public void setArrivalTime(String arrivalTime) {
         this.arrivalTime = arrivalTime;
     }
 }

@@ -5,6 +5,7 @@ import com.javaschool.SBB.db.DAO.daoInterfaces.TrainDAO;
 import com.javaschool.SBB.db.DTO.SuitableRouteDTO;
 import com.javaschool.SBB.db.DTO.TrainDTO;
 import com.javaschool.SBB.db.entities.Train;
+import com.javaschool.SBB.hepler.DateTimeParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +22,9 @@ public class TrainService {
     @Autowired
     Mapper mapper;
 
+    @Autowired
+    DateTimeParser dateTimeParser;
+
     public void createTrain(Train train) {
         trainDAO.create(train);
     }
@@ -30,7 +34,8 @@ public class TrainService {
     }
 
     public boolean moreThenTenMinutesBeforeDeparture(SuitableRouteDTO selectedRoute) {
-        Duration duration = Duration.between(LocalDateTime.now(), selectedRoute.getDepartureTime());
+        LocalDateTime time = dateTimeParser.stringToLocalDateTime(selectedRoute.getDepartureTime());
+        Duration duration = Duration.between(LocalDateTime.now(), time);
         Duration tenMinutes = Duration.ofMinutes(10);
         if (duration.compareTo(tenMinutes) < 0) {
             return false;
