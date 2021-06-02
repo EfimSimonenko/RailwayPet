@@ -49,15 +49,17 @@ public class AdminController {
         return "manage_railway";
     }
 
+
+    @RequestMapping(value = "/allTrains", method = RequestMethod.GET)
+    public String showAllTrains(Model model) {
+        model.addAttribute("train", new Train());
+        model.addAttribute("trainList", trainService.getAllTrains());
+        return "all_trains";
+    }
+
     @RequestMapping(value = "/addTrain", method = RequestMethod.POST)
     public String addTrain(@ModelAttribute(name = "train") Train train, Model model) {
         trainService.createTrain(train);
-        return "redirect: editTimetable";
-    }
-
-    @RequestMapping(value = "/addStation", method = RequestMethod.POST)
-    public String addStation(@ModelAttribute(name = "station") Station station) {
-        stationService.createStation(station);
         return "redirect: editTimetable";
     }
 
@@ -65,13 +67,6 @@ public class AdminController {
     public String addTrainStop (@ModelAttribute(name = "trainStop") TimetableDTO trainStop) {
         timetableService.addToTimetable(trainStop);
         return "redirect: editTimetable";
-    }
-
-    @RequestMapping(value = "/allTrains", method = RequestMethod.GET)
-    public String showAllTrains(Model model) {
-        model.addAttribute("train", new Train());
-        model.addAttribute("trainList", trainService.getAllTrains());
-        return "all_trains";
     }
 
     @RequestMapping(value = "/passengers/{trainName}", method = RequestMethod.GET)
@@ -82,6 +77,4 @@ public class AdminController {
         model.addAttribute("train", train);
         return "passengers_on_train";
     }
-
-
 }

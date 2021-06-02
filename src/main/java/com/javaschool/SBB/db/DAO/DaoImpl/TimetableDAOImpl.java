@@ -4,6 +4,7 @@ import com.javaschool.SBB.db.DAO.daoInterfaces.StationDAO;
 import com.javaschool.SBB.db.DAO.daoInterfaces.TimetableDAO;
 import com.javaschool.SBB.db.DTO.SuitableRouteDTO;
 import com.javaschool.SBB.db.DTO.TicketSearchDTO;
+import com.javaschool.SBB.db.DTO.TimetableDTO;
 import com.javaschool.SBB.db.entities.Station;
 import com.javaschool.SBB.db.entities.Timetable;
 import com.javaschool.SBB.hepler.DateTimeParser;
@@ -46,6 +47,7 @@ public class TimetableDAOImpl implements TimetableDAO {
         query.setParameter("endOfTheDay", endOfTheDay);
         return query.getResultList();
     }
+
 
     public List<Timetable> getStationTimetableByDate(Station station, LocalDate date) {
         String customQuery = "SELECT t FROM Timetable t WHERE t.stationId = :station AND ((t.arrivalTime >= :startOfTheDay " +

@@ -1,6 +1,7 @@
 package com.javaschool.SBB.db.entities;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "station")
@@ -40,4 +41,27 @@ public class Station {
     public String toString() {
         return "" + this.getStationName();
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 29 * hash + Objects.hashCode(this.stationName);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Station other = (Station) obj;
+        if (this.stationName.compareTo(other.stationName)==0 ) {
+            return true;
+        }
+        return false;
+    }
+
 }

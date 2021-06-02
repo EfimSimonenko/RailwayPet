@@ -37,7 +37,7 @@ public class TrainService {
         LocalDateTime time = dateTimeParser.stringToLocalDateTime(selectedRoute.getDepartureTime());
         Duration duration = Duration.between(LocalDateTime.now(), time);
         Duration tenMinutes = Duration.ofMinutes(10);
-        if (duration.compareTo(tenMinutes) < 0) {
+        if (duration.compareTo(tenMinutes) < 0 || time.compareTo(LocalDateTime.now()) < 0) {
             return false;
         } else return true;
     }

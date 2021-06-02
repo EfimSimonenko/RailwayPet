@@ -12,13 +12,15 @@
 <h1>Register</h1>
 
 <form:form method="POST" action="/register" modelAttribute="registrationForm">
-    <table>
         <div>
             <form:input type="text" path="username" placeholder="Username"
                         autofocus="true"></form:input>
         </div>
         <div>
             <form:input type="password" path="password" placeholder="Password"></form:input>
+        </div>
+        <div>
+            <form:input type="password" path="confirmPassword" placeholder="Confirm password"></form:input>
         </div>
         <div>
             <form:input type="text" path="firstName"
@@ -33,7 +35,6 @@
                         placeholder="Date of birth"></form:input>
         </div>
         <button type="submit">Register</button>
-    </table>
 </form:form>
 
 <a href="/index">Return to main page</a>

@@ -11,9 +11,14 @@ import java.time.format.DateTimeFormatter;
 public class DateTimeParser {
 
     public LocalDateTime stringToLocalDateTime(String s) {
-        LocalDateTime localDateTime = LocalDateTime.parse(s,
+
+        LocalDateTime localDateTime = LocalDateTime.parse(s.replace(' ', 'T'),
                 DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm"));
         return localDateTime;
+    }
+
+    public String localDateTimeToString(LocalDateTime dateTime) {
+        return dateTime.toString().replace('T',' ');
     }
 
     public LocalDate stringToLocalDate(String s) {

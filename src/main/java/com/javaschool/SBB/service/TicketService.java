@@ -9,11 +9,14 @@ import com.javaschool.SBB.db.DTO.SuitableRouteDTO;
 import com.javaschool.SBB.db.DTO.TicketSearchDTO;
 import com.javaschool.SBB.db.DTO.TrainDTO;
 import com.javaschool.SBB.db.entities.*;
+import com.javaschool.SBB.hepler.DateTimeParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class TicketService {
@@ -30,6 +33,9 @@ public class TicketService {
     @Autowired
     Mapper mapper;
 
+    @Autowired
+    DateTimeParser parser;
+
 
 
     public List<SuitableRouteDTO> getSuitableRoutes(TicketSearchDTO requestedData) {
@@ -42,7 +48,8 @@ public class TicketService {
                 if(departure.getTrainId().getTrainName().equals(arrival.getTrainId().getTrainName()) &&
                   departure.getDepartureTime().compareTo(arrival.getArrivalTime()) < 0) {
                     SuitableRouteDTO route = new SuitableRouteDTO(departure.getTrainId(), departure.getStationId(),
-                            arrival.getStationId(), departure.getDepartureTime().toString(), arrival.getArrivalTime().toString());
+                            arrival.getStationId(), parser.localDateTimeToString(departure.getDepartureTime()),
+                            parser.localDateTimeToString(arrival.getArrivalTime()));
                     routes.add(route);
                 }
             }
@@ -54,16 +61,28 @@ public class TicketService {
 
         List<Station> stationList = timetableDAO.getTrainRoute(route);  //gets all stations for the train
         List<Ticket> ticketsBoughtForTrain = ticketDAO.getTicketsByTrain(route.getTrain());  //gets all tickets bought for the train
-        stationList.indexOf(route.getDepartureStation());
         int departureStationIndex = stationList.indexOf(route.getDepartureStation());
         int arrivalStationIndex = stationList.indexOf(route.getArrivalStation());
-
-        for(Ticket t : ticketsBoughtForTrain) {
-           //!!!add algorithm here!!!
+        Map<Integer, Integer> seatsCount = new HashMap<>();
+        for(Station station : stationList) {
+            seatsCount.put(stationList.indexOf(station), 0);
         }
-        if (ticketsBoughtForTrain.size() < route.getTrain().getNumberOfSeats()) {
+
+        for(Ticket ticket : ticketsBoughtForTrain) {
+           for (int i = stationList.indexOf(ticket.getStationFrom()); i <= stationList.indexOf(ticket.getStationTo()); i++) {
+               seatsCount.put(i, seatsCount.get(i) + 1);
+           }
+        }
+        for (int i = departureStationIndex; i <= arrivalStationIndex; i++) {
+            if (seatsCount.get(i) >= route.getTrain().getNumberOfSeats()) return false;
+        }
+        return true;
+
+       /* if (ticketsBoughtForTrain.size() < route.getTrain().getNumberOfSeats()) {
             return true;
         } else return false;
+
+        */
     }
 
     public void addTicket(SuitableRouteDTO route, PassengerDTO passengerDTO) {

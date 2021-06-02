@@ -1,8 +1,10 @@
 package com.javaschool.SBB.db.DTO;
 
+
 public class RegistrationDTO {
 
-    private String username;
+
+    private String email;
 
     private String password;
 
@@ -17,9 +19,9 @@ public class RegistrationDTO {
     public RegistrationDTO() {
     }
 
-    public RegistrationDTO(String username, String password, String confirmPassword,
+    public RegistrationDTO(String email, String password, String confirmPassword,
                            String firstName, String lastName, String dateOfBirth) {
-        this.username = username;
+        this.email = email;
         this.password = password;
         this.confirmPassword = confirmPassword;
         this.firstName = firstName;
@@ -27,12 +29,12 @@ public class RegistrationDTO {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public String getUsername() {
-        return username;
+    public String getEmail() {
+        return email;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {

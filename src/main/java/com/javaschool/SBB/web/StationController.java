@@ -23,6 +23,12 @@ public class StationController {
         return "all_stations";
     }
 
+    @RequestMapping(value = "/addStation", method = RequestMethod.POST)
+    public String addStation(@ModelAttribute(name = "station") Station station) {
+        stationService.createStation(station);
+        return "redirect: stations";
+    }
+
     @RequestMapping(value = "stationInfo/{id}", method = RequestMethod.GET)
     public String showStationInfo(@PathVariable("id") int id, @RequestParam(name = "timetableDate", required = false) String date,
             Model model) {

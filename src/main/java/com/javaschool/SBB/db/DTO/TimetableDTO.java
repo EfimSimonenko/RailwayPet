@@ -4,37 +4,35 @@ import com.javaschool.SBB.db.entities.Station;
 import com.javaschool.SBB.db.entities.Train;
 
 public class TimetableDTO {
-    private int id;
-    private Train trainId;
-    private Station stationId;
+
+    private String trainId;
+    private String stationId;
     private String arrivalTime;
     private String departureTime;
 
     public TimetableDTO() {
     }
 
-    public TimetableDTO(Train trainId, Station stationId, String arrivalDate, String departureDate) {
+    public TimetableDTO(String trainId, String stationId, String arrivalTime, String departureTime) {
         this.trainId = trainId;
         this.stationId = stationId;
-        this.arrivalTime = arrivalDate;
-        this.departureTime = departureDate;
+        this.arrivalTime = arrivalTime;
+        this.departureTime = departureTime;
     }
 
-
-
-    public Train getTrainId() {
+    public String getTrainId() {
         return trainId;
     }
 
-    public void setTrainId(Train trainId) {
+    public void setTrainId(String trainId) {
         this.trainId = trainId;
     }
 
-    public Station getStationId() {
+    public String getStationId() {
         return stationId;
     }
 
-    public void setStationId(Station stationId) {
+    public void setStationId(String stationId) {
         this.stationId = stationId;
     }
 

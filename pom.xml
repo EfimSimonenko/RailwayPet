@@ -20,6 +20,7 @@
         <securityWeb.version>5.4.5</securityWeb.version>
         <securityCore.version>5.4.5</securityCore.version>
         <securityConfig.version>5.4.5</securityConfig.version>
+        <version.wildfly>10.0.0.Final</version.wildfly>
     </properties>
 
     <dependencies>
@@ -121,6 +122,18 @@
             <scope>provided</scope>
         </dependency>
 
+        <dependency>
+            <groupId>org.wildfly</groupId>
+            <artifactId>wildfly-jms-client-bom</artifactId>
+            <version>${version.wildfly}</version>
+            <type>pom</type>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jms</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
 
     </dependencies>
 

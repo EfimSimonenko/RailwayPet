@@ -29,8 +29,8 @@ public class Mapper {
     StationDAO stationDAO;
 
     public Timetable dtoToEntity(TimetableDTO timetableDTO) {
-        Train train = trainDAO.getByName(timetableDTO.getTrainId().getTrainName());
-        Station station = stationDAO.findByName(timetableDTO.getStationId().getStationName());
+        Train train = trainDAO.getByName(timetableDTO.getTrainId());
+        Station station = stationDAO.findByName(timetableDTO.getStationId());
         LocalDateTime  arrivalTime;
         LocalDateTime departureTime;
         if (timetableDTO.getArrivalTime().equals("")) arrivalTime = null;
@@ -60,7 +60,7 @@ public class Mapper {
         else {
             departureTime = timetable.getDepartureTime().toString().replace("T", " ");
         }
-        return new TimetableDTO(timetable.getTrainId(), timetable.getStationId(), arrivalTime, departureTime);
+        return new TimetableDTO(timetable.getTrainId().getTrainName(), timetable.getStationId().getStationName(), arrivalTime, departureTime);
     }
 
     public TrainDTO entityToDto(Train train) {

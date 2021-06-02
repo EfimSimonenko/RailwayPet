@@ -9,6 +9,9 @@
 </head>
 
 <body>
+<div>
+    <jsp:include page="header.jsp"/>
+</div>
 <h2>The ticket, you chose</h2>
 <div>
         <table border="1" class="tg">

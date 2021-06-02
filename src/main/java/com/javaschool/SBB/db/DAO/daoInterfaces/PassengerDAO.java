@@ -18,6 +18,4 @@ public interface PassengerDAO{
     public void createPassenger(Passenger passenger);
 
 
-
-
 }

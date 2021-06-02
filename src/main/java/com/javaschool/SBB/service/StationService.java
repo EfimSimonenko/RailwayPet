@@ -25,4 +25,7 @@ public class StationService {
        return this.stationDAO.getStationById(id);
     }
 
+    public Station getStationByName(String stationName) {
+        return stationDAO.findByName(stationName);
+    }
 }
